@@ -1,16 +1,33 @@
+package heap;
+
 public class heap {
-    int[] dizimx;
-    int[] dizimi;
-    int boyut;
-    int elemans;
+
+    /**
+     * en büyük en üste olacak şekilde ayarlanıyor
+     */
+    private int[] dizimx;
+    /**
+     * en küçük en üste olacak şekilde ayarlanıyor
+     */
+    private int[] dizimi;
+    private int boyut;
+    private int elemans;
+
+    /**
+     * dizinin alabileceği max verimiktarı yazılır
+     */
     public heap(int boyut) {
         dizimx = new int[boyut];
         dizimi = new int[boyut];
         this.boyut = boyut;
         elemans = 0;
     }
+
+    /*burada ilk while de dağa büyük deyer bir üst köke(root)ile yer deyiştiri
+        ikinci while de dağa küçük deyer bir üstdeyerle yer deyiştiri
+     */
     void yukarı(int no) {
-        int noo=no;
+        int noo = no;
         int root = (no - 1) / 2;
         while (root >= 0 && dizimx[root] < dizimx[no]) {
             int tmp = dizimx[root];
@@ -19,7 +36,7 @@ public class heap {
             no = root;
             root = (no - 1) / 2;
         }
-        no=noo;
+        no = noo;
         root = (no - 1) / 2;
         while (root >= 0 && dizimi[root] > dizimi[no]) {
             int tmp = dizimi[root];
@@ -29,34 +46,46 @@ public class heap {
             root = (no - 1) / 2;
         }
     }
-    boolean dolumu() {
+
+    /**
+     * dizinin max doluluna ulaşıldımı kontrol için
+     */
+    public boolean dolumu() {
         return elemans == boyut;
     }
-    void ekle(int yeni) {
+
+    /**
+     * ekleme işlemi yapra ardından yukarı metodunu çağırır
+     */
+    public void ekle(int yeni) {
         if (!dolumu()) {
             dizimx[elemans] = yeni;
             dizimi[elemans] = yeni;
             elemans++;
             yukarı(elemans - 1);
+        } else {
+            System.out.println("dolu");
         }
-        else System.out.println("dolu");
     }
-    void seemx() {
+
+    /**
+     * en büyük deyere göre dizilenleri yazdırırı
+     */
+    public void seemx() {
         for (int i = 0; i < elemans; i++) {
             System.out.print(dizimx[i] + "    ");
         }
         System.out.println("");
     }
-    void seemi() {
+
+    /**
+     * en küçük deyere göre dizilenleri yazdırırı
+     */
+    public void seemi() {
         for (int i = 0; i < elemans; i++) {
             System.out.print(dizimi[i] + "    ");
         }
         System.out.println("");
     }
-    void al(int dizi[]){
-        this.dizimx=dizi;
-        this.dizimi=dizi;
-        //burda kaldın
-    }
-    
+
 }
